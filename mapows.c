@@ -28,6 +28,7 @@
  ****************************************************************************/
 
 #include "mapserver.h"
+#include "mapthread.h"
 #include "maptime.h"
 #include "maptemplate.h"
 
@@ -1815,6 +1816,7 @@ void msOWSPrintBoundingBox(FILE *stream, const char *tabspace,
     value = epsgs[i];
     memcpy(&ext, extent, sizeof(rectObj));
 
+    msAcquireLock(TLOCK_WxS);
     /* reproject the extents for each SRS's bounding box */
     msInitProjection(&proj);
     if (msLoadProjectionStringEPSG(&proj, (char *)value) == 0) {
@@ -1829,6 +1831,7 @@ void msOWSPrintBoundingBox(FILE *stream, const char *tabspace,
       }
     }
     msFreeProjection( &proj );
+    msReleaseLock(TLOCK_WxS);
 
     if( value != NULL ) {
       encoded = msEncodeHTMLEntities(value);

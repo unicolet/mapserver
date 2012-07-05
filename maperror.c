@@ -86,6 +86,26 @@ static char *ms_errorCodes[MS_NUMERRORCODES] = {"",
     "Renderer error."
                                                };
 
+#ifndef WANT_BACKTRACE 
+/* function to print stack trace */
+void print_trace () {
+   void *array[10];
+   size_t size;
+   char **strings;
+   size_t i;
+
+   size = backtrace (array, 10);
+   strings = backtrace_symbols (array, size);
+
+   printf ("Obtained %zd stack frames.\n", size);
+
+   for (i = 0; i < size; i++)
+      printf ("[%d] %s\n", i, strings[i]);
+
+   free (strings);
+}
+#endif
+
 #ifndef USE_THREAD
 
 errorObj *msGetErrorObj()
@@ -311,6 +331,10 @@ char *msGetErrorString(char *delimiter)
 
 void msSetError(int code, const char *message_fmt, const char *routine, ...)
 {
+#ifndef WANT_BACKTRACE
+  print_trace();
+#endif
+
   errorObj *ms_error = msInsertErrorObj();
   va_list args;
 
