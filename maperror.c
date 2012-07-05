@@ -85,8 +85,8 @@ static char *ms_errorCodes[MS_NUMERRORCODES] = {"",
     "OpenGL renderer error.",
     "Renderer error."
                                                };
-
-#ifndef WANT_BACKTRACE 
+#define WANT_BACKTRACE 1
+#ifdef WANT_BACKTRACE 
 /* function to print stack trace */
 void print_trace () {
    void *array[10];
@@ -331,7 +331,7 @@ char *msGetErrorString(char *delimiter)
 
 void msSetError(int code, const char *message_fmt, const char *routine, ...)
 {
-#ifndef WANT_BACKTRACE
+#ifdef WANT_BACKTRACE
   print_trace();
 #endif
 
