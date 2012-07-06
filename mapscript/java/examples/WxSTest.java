@@ -30,6 +30,7 @@ class WxSTest_thread extends Thread {
 //        System.out.println( mapscript.msIO_getStdoutBufferString() );
 
         resultBytes = mapscript.msIO_getStdoutBufferBytes();
+        mapscript.msIO_resetHandlers();
     }
 }
 
