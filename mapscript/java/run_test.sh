@@ -3,7 +3,7 @@
 JAVA=${JAVA_HOME}/bin/java
 JAVAC=${JAVA_HOME}/bin/javac
 
-${JAVAC} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -d examples/ examples/RFC24.java examples/ConnPool.java examples/DrawMap.java examples/DumpShp.java examples/MakePoint.java examples/QueryByAttribute.java examples/ShapeInfo.java examples/WxSTest.java examples/Metadata.java examples/RunTimeBuiltWMSClient.java
+${JAVAC} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -d examples/ examples/RFC24.java examples/ConnPool.java examples/DrawMap.java examples/DumpShp.java examples/MakePoint.java examples/QueryByAttribute.java examples/ShapeInfo.java examples/WxSTest.java examples/Metadata.java examples/RunTimeBuiltWMSClient.java examples/WxSTestNoThread.java
 ${JAVAC} -encoding utf8 -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -d examples/ examples/QueryByAttributeUnicode.java 
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} DumpShp ../../tests/point.shp
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} ShapeInfo ../../tests/point.shp ../../tests/point.dbf
@@ -11,6 +11,7 @@ ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.librar
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} ConnPool
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} QueryByAttribute ../../tests/test.map
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} WxSTest ../../tests/test.map
+${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} WxSTestNoThread ../../tests/test.map
 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} RFC24 ../../tests/test.map
 LC_ALL=en_US.UTF-8 ${JAVA} -classpath ./:examples/:${JAVA_MAPSCRIPT_SO}/mapscript.jar -Djava.library.path=${JAVA_MAPSCRIPT_SO} QueryByAttributeUnicode data/subset-umlauts.map
 

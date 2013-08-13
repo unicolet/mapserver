@@ -28,6 +28,7 @@
  ****************************************************************************/
 
 #include "mapserver.h"
+#include "mapthread.h"
 #include "maptime.h"
 #include "maptemplate.h"
 
