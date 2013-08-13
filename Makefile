@@ -1,6 +1,7 @@
 AUTOTEST_OPTS=-strict -q
 PHP_MAPSCRIPT=build/mapscript/php/php_mapscript.so
 PYTHON_MAPSCRIPT_PATH=build/mapscript/python
+JAVA_MAPSCRIPT_PATH=build/mapscript/java
 BUILDPATH=../../build
 FLEX=flex
 YACC=yacc
@@ -42,10 +43,14 @@ mspython-testcase:
 php-testcase:
 	test -f "$(PHP_MAPSCRIPT)" && (export PHP_MAPSCRIPT_SO="../../$(PHP_MAPSCRIPT)" && cd msautotest/php && ./run_test.sh)
 
+java-testcase:
+	test -d "$(JAVA_MAPSCRIPT_PATH)" && (export JAVA_MAPSCRIPT_SO="../../$(JAVA_MAPSCRIPT_PATH)" && cd mapscript/java && ./run_test.sh)
+
 test: autotest-install cmakebuild
 	@$(MAKE) $(MFLAGS)	wxs-testcase renderers-testcase misc-testcase gdal-testcase query-testcase mspython-testcase
 	@./print-test-results.sh
 	@$(MAKE) $(MFLAGS)	php-testcase
+	@$(MAKE) $(MFLAGS)	java-testcase
 
 
 lexer: maplexer.c
