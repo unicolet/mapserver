@@ -28,6 +28,7 @@ public class RFC24 {
 		testGetClassObj();
 		testGetOutputformatObj();
 		testInsertOutputformatObj();
+		testInsertSymbolObj();
 
 		System.out.println("Finished "+getClass().getName());
 	}
@@ -131,6 +132,25 @@ public class RFC24 {
                 map=null; format=null;
                 gc();
                 assertNotNull(newFormat.getDriver(), "testInsertOutputformatObj");
+        }
+        
+         public void testInsertSymbolObj() {
+         	System.out.println("testInsertSymbolObj: start\n");
+            mapObj map=new mapObj(mapfile);
+            symbolObj symbol  = new symbolObj("RFC24-XMARKS", null);
+            symbol.setImagepath("../../tests/xmarks.png");
+            symbol.setType(MS_SYMBOL_TYPE.MS_SYMBOL_PIXMAP.swigValue());
+            symbol.getImage(null);
+            int index=map.getSymbolset().appendSymbol(symbol);
+            map.getLayerByName("LINE").getClass(1).getStyle(0).setSymbol(index);
+            map.getLayerByName("LINE").setStatus(mapscriptConstants.MS_DEFAULT);
+			map.draw();
+			map=null;
+			gc();
+			symbol=null;
+			gc();
+			// sanity check, the program should have crashed by now
+			assertNotNull(new java.util.Date(), "testInsertSymbolObj");
         }
 
 	public void gc() {

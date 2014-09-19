@@ -133,11 +133,13 @@ int msFreeSymbol(symbolObj *s)
     return MS_FAILURE;
   }
 
+ //printf("Freeing symbol: %s\n", s->name);
   if(s->name) free(s->name);
   if(s->renderer_free_func) {
     s->renderer_free_func(s);
   } else {
     if(s->renderer!=NULL) {
+     //printf(" - Freeing renderer symbol: %p\n", s->renderer);
       s->renderer->freeSymbol(s);
     }
   }
@@ -855,6 +857,7 @@ int msLoadImageSymbol(symbolObj *symbol, const char *filename)
 
 int msPreloadImageSymbol(rendererVTableObj *renderer, symbolObj *symbol)
 {
+ //printf("msPreloadImageSymbol for %s\n", symbol->name);
   if(symbol->pixmap_buffer && symbol->renderer == renderer)
     return MS_SUCCESS;
   if(symbol->pixmap_buffer) { /* other renderer was used, start again */
@@ -868,6 +871,7 @@ int msPreloadImageSymbol(rendererVTableObj *renderer, symbolObj *symbol)
     symbol->pixmap_buffer = NULL;
     return MS_FAILURE;
   }
+ //printf("msPreloadImageSymbol for %s: reference to renderer set!\n", symbol->name);
   symbol->renderer = renderer;
   symbol->sizex = symbol->pixmap_buffer->width;
   symbol->sizey = symbol->pixmap_buffer->height;
